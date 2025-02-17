@@ -29,7 +29,7 @@ public class Main {
             PasswordEncoder passwordEncoder) {
         return args -> {
             createRandomCustomer(customerRepository, passwordEncoder);
-            // testBucketUploadAndDownload(s3Service, s3Buckets);
+//             testBucketUploadAndDownload(s3Service, s3Buckets);
         };
     }
 

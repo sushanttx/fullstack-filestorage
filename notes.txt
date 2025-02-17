@@ -1,0 +1,4 @@
+Ping-Pong Controller is a simple Spring Boot REST API controller that provides a basic ping-pong response when accessed.
+A record is a special type used for immutable data structures. This record defines a response model with a single field result.
+It can be used in load balancers or monitoring tools to check if the backend service is running. Example: Kubernetes liveness probes use /ping endpoints. This can be extended to track user activity or API usage.
+
