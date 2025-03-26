@@ -13,37 +13,59 @@ const AuthProvider = ({ children }) => {
 
     const [customer, setCustomer] = useState(null);
 
-    const setCustomerFromToken = () => {
+    const setCustomerFromToken = async () => {
         let token = localStorage.getItem("access_token");
         if (token) {
             token = jwtDecode(token);
-            setCustomer({
-                username: token.sub,
-                roles: token.scopes
-            })
+            try {
+                console.log("token sub: ",token.sub);
+                const response = await getCustomers(token.sub);
+                console.log("Fetched customer details:", response);
+                const loggedInCustomer = response.data.find(cust => cust.email === token.sub);
+                console.log("loggedInCustomer", loggedInCustomer);
+                setCustomer({
+                    username: token.sub,
+                    roles: token.scopes,
+                    customerId: loggedInCustomer.id, // Ensure this API returns customerId
+                });
+            } catch (error) {
+                console.error("Error fetching customer details:", error);
+            }
         }
     }
     useEffect(() => {
-        setCustomerFromToken()
+        const fetchData = async () => {
+            await setCustomerFromToken(); // ✅ Call async function inside
+        };
+        fetchData();
     }, [])
 
 
     const login = async (usernameAndPassword) => {
         return new Promise((resolve, reject) => {
-            performLogin(usernameAndPassword).then(res => {
+            performLogin(usernameAndPassword).then(async res => {
                 const jwtToken = res.headers["authorization"];
                 localStorage.setItem("access_token", jwtToken);
 
                 const decodedToken = jwtDecode(jwtToken);
 
-                setCustomer({
-                    username: decodedToken.sub,
-                    roles: decodedToken.scopes
-                })
+                try {
+                    // Fetch customer details after login
+                    const response = await getCustomers(decodedToken.sub);
+                    const loggedInCustomer = response.data.find(cust => cust.email === token.sub);
+                    setCustomer({
+                        username: decodedToken.sub,
+                        roles: decodedToken.scopes,
+                        customerId: loggedInCustomer.id, // Ensure this is correctly fetched
+                    });
+                } catch (error) {
+                    console.error("Error fetching customer details:", error);
+                }
+
                 resolve(res);
             }).catch(err => {
                 reject(err);
-            })
+            });
         })
     }
 

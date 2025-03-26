@@ -10,6 +10,22 @@ import { getCustomers } from "./services/client.js";
 import CardWithImage from "./components/customer/CustomerCard.jsx";
 import CreateCustomerDrawer from "./components/customer/CreateCustomerDrawer.jsx";
 import {errorNotification} from "./services/notification.js";
+import jwtDecode from "jwt-decode"; // Install using: npm install jwt-decode
+
+const getLoggedInUserId = async () => {
+    const token = localStorage.getItem("access_token");
+    if (!token) return null;
+    try {
+        const decoded = jwtDecode(token);
+        const response = await getCustomers(decoded.sub);
+        const loggedInCustomer = response.data.find(cust => cust.email === decoded.sub);
+        console.log("getLoggedInUserId: ", loggedInCustomer.id);
+        return loggedInCustomer.id; // Ensure your JWT includes "id"
+    } catch (error) {
+        console.error("Invalid token", error);
+        return null;
+    }
+};
 
 const Customer = () => {
 
@@ -72,11 +88,11 @@ const Customer = () => {
         )
     }
 
+//     const loggedInCustomerId = getLoggedInUserId();
+
     return (
-        <SidebarWithHeader>
-            <CreateCustomerDrawer
-                fetchCustomers={fetchCustomers}
-            />
+        <SidebarWithHeader customerId={getLoggedInUserId}>
+            <CreateCustomerDrawer fetchCustomers={fetchCustomers} />
             <Wrap justify={"center"} spacing={"30px"}>
                 {customers.map((customer, index) => (
                     <WrapItem key={index}>
@@ -89,6 +105,26 @@ const Customer = () => {
                 ))}
             </Wrap>
         </SidebarWithHeader>
+//     );
+//
+//
+//     return (
+//         <SidebarWithHeader customerId={customers.length > 0 ? customers[0].id : null}>
+//             <CreateCustomerDrawer
+//                 fetchCustomers={fetchCustomers}
+//             />
+//             <Wrap justify={"center"} spacing={"30px"}>
+//                 {customers.map((customer, index) => (
+//                     <WrapItem key={index}>
+//                         <CardWithImage
+//                             {...customer}
+//                             imageNumber={index}
+//                             fetchCustomers={fetchCustomers}
+//                         />
+//                     </WrapItem>
+//                 ))}
+//             </Wrap>
+//         </SidebarWithHeader>
     )
 }
 

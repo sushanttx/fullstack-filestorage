@@ -14,8 +14,8 @@ jobs:
       postgres:
         image: postgres:14.1
         env:
-          POSTGRES_USER: amigoscode
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root123
           POSTGRES_DB: customer
         ports:
           - 5332:5432
