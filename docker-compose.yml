@@ -18,8 +18,8 @@ services:
   sushant-api:
     container_name: sushant-api
     image: sushant5x/fullstack-app-backend:latest
-    env_file:
-      - .env
+#    env_file:
+#      - .env
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/customer
     ports:
