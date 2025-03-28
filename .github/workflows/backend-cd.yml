@@ -66,6 +66,22 @@ jobs:
           --data '{"text":":maven: Building with Maven"}' 
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          for i in {1..20}; do
+            nc -zv localhost 5332 && echo "PostgreSQL is up!" && exit 0
+            echo "Waiting for PostgreSQL..."
+            sleep 5
+          done
+          echo "PostgreSQL did not start in time." && exit 1
+
+      - name: Debug PostgreSQL Connection
+        run: |
+          echo "Checking if PostgreSQL is reachable..."
+          pg_isready -h localhost -p 5332 -U postgres
+
+
+
       - name: Build Package and Push to Docker Hub
         run: mvn -ntp -B verify -Ddocker.image.tag=${{ env.BUILD_NUMBER }} jib:build
 
