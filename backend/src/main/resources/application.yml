@@ -24,7 +24,7 @@ management:
 
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/customer
+    url: jdbc:postgresql://localhost:5432/customer
     username: root
     password: root123
   jpa:
