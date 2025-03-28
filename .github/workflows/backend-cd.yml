@@ -79,6 +79,10 @@ jobs:
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
       - name: Build Package and Push to Docker Hub
+        env:
+          DOCKER_IMAGE: sushant5x/fullstack-app-backend
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_ACCESS_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
         run: mvn -ntp -B verify -Ddocker.image.tag=${{ env.BUILD_NUMBER }} jib:build
 
       - name: Send Slack - Docker Image Pushed

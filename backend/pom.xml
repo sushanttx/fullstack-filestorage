@@ -266,7 +266,11 @@
                         </platforms>
                     </from>
                     <to>
-                        <image>docker.io/${docker.username}/${docker.image.name}:${docker.image.tag}</image>
+                        <image>${env.DOCKER_IMAGE}</image>
+                        <auth>
+                            <username>${env.DOCKERHUB_USERNAME}</username>
+                            <password>${env.DOCKERHUB_ACCESS_TOKEN}</password>
+                        </auth>
                         <tags>
                             <tag>latest</tag>
                         </tags>
