@@ -1,18 +1,28 @@
+networks:
+  mynetwork:
+    driver: bridge
+
 services:
-  db:
+  postgres:
     container_name: postgres
     image: postgres:14.1
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root123
+      POSTGRES_DB: customer
       PGDATA: /data/postgres
     volumes:
-      - db:/data/postgres
+      - postgres:/data/postgres
     ports:
-      - "5332:5432"
+      - "5432:5432"
     networks:
-      - db
+      - mynetwork
     restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U root -d customer" ]
+      interval: 10s
+      retries: 5
+      start_period: 10s
 
   sushant-api:
     container_name: sushant-api
@@ -20,13 +30,14 @@ services:
 #    env_file:
 #      - .env
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/customer
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/customer
     ports:
       - "8088:8080"
     networks:
-      - db
+      - mynetwork
     depends_on:
-      - db
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
 
   sushant-react:
@@ -37,14 +48,14 @@ services:
       args:
         api_base_url: http://localhost:8088
     ports:
-      - "5173:5173"
+      - "3000:3000"
     depends_on:
       - sushant-api
+    networks:
+      - mynetwork
     restart: unless-stopped
 
-networks:
-  db:
-    driver: bridge
+
 
 volumes:
-  db:
+  postgres:

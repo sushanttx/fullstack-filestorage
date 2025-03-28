@@ -19,7 +19,7 @@ jobs:
           POSTGRES_PASSWORD: root123
           POSTGRES_DB: customer
         ports:
-          - 5332:5432
+          - 5432:5432
         options:
           --health-cmd pg_isready
           --health-interval 10s
@@ -78,7 +78,7 @@ jobs:
       - name: Debug PostgreSQL Connection
         run: |
           echo "Checking if PostgreSQL is reachable..."
-          pg_isready -h localhost -p 5332 -U postgres
+          pg_isready -h localhost -p 5332 -U root
 
 
 
