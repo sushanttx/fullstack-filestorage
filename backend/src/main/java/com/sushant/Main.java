@@ -5,6 +5,8 @@ import com.sushant.customer.CustomerRepository;
 import com.sushant.customer.Gender;
 import com.sushant.s3.S3Buckets;
 import com.sushant.s3.S3Service;
+import io.github.cdimascio.dotenv.Dotenv;
+import jakarta.annotation.PostConstruct;
 import net.datafaker.Faker;
 //import com.github.javafaker.Name;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +21,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+        Dotenv dotenv = Dotenv.load();
         SpringApplication.run(Main.class, args);
     }
 
@@ -29,7 +32,9 @@ public class Main {
             S3Service s3Service,
             S3Buckets s3Buckets) {
         return args -> {
+//            logEnvironmentVariables();
             createRandomCustomer(customerRepository, passwordEncoder);
+
 //             testBucketUploadAndDownload(s3Service, s3Buckets);
         };
     }
@@ -68,5 +73,13 @@ public class Main {
         customerRepository.save(customer);
         System.out.println(email);
     }
+//    @PostConstruct
+//    public void logEnvironmentVariables() {
+//        System.out.println("RDS_HOST: " + System.getenv("RDS_HOST"));
+//        System.out.println("RDS_DB_NAME: " + System.getenv("RDS_DB_NAME"));
+//        System.out.println("RDS_USERNAME: " + System.getenv("RDS_USERNAME"));
+//        System.out.println("RDS_PASSWORD: " + System.getenv("RDS_PASSWORD"));
+//    }
+
 
 }

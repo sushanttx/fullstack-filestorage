@@ -2,8 +2,8 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "amigoscode-api",
-      "image": "amigoscode/amigoscode-api:20.04.2023.13.39.03",
+      "name": "sushant-api",
+      "image": "sushant5x/sushant-api:latest",
       "essential": true,
       "memory": 512,
       "portMappings": [

@@ -26,9 +26,9 @@ spring:
   config:
     import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:postgresql://${RDS_HOST}:5432/${RDS_DB_NAME}
-    username: ${RDS_USERNAME}
-    password: ${RDS_PASSWORD}
+    url: jdbc:postgresql://localhost:5332/customer
+    username: root
+    password: root123
   jpa:
     hibernate:
       ddl-auto: update

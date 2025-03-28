@@ -8,5 +8,6 @@ docker buildx build \
     --platform=linux/amd64,linux/arm64 \
     -t "${USERNAME}/${REPO}:${TAG}" \
     -t "${USERNAME}/${REPO}:latest" \
+    "${@:2}" \
     --push \
-    .
+    "$1"

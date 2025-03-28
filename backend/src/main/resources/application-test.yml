@@ -4,7 +4,6 @@ aws:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${RDS_HOST}:5432/${RDS_DB_NAME}
-    username: ${RDS_USERNAME}
-    password: ${RDS_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc-secretsmanager:postgresql://database-2.cv8wgw2euf1d.ap-south-1.rds.amazonaws.com:5432/customer
+    driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver
+
