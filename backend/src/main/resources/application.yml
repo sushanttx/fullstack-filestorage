@@ -12,7 +12,7 @@ cors:
 aws:
   region: ap-south-1
   s3:
-    mock: false
+    mock: true
     buckets:
       customer: sush-employeedb
 
