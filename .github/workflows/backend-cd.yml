@@ -76,7 +76,7 @@ jobs:
           echo "PostgreSQL did not start in time." && exit 1
 
       - name: Test Docker Hub Login
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_ACCESS_TOKEN
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
       - name: Build Package and Push to Docker Hub
         run: mvn -ntp -B verify -Ddocker.image.tag=${{ env.BUILD_NUMBER }} jib:build
