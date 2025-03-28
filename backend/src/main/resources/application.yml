@@ -23,8 +23,8 @@ management:
         include: "health,info"
 
 spring:
-  config:
-    import: optional:file:.env[.properties]
+#  config:
+#    import: optional:file:.env[.properties]
   datasource:
     url: jdbc:postgresql://localhost:5332/customer
     username: root
