@@ -12,7 +12,10 @@
       ],
       "environment": {
         "SPRING_DATASOURCE_URL": "jdbc-secretsmanager:postgresql://database-2.cv8wgw2euf1d.ap-south-1.rds.amazonaws.com:5432/customer",
-        "SPRING_DATASOURCE_DRIVER_CLASS_NAME": "com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver"
+        "SPRING_DATASOURCE_DRIVER_CLASS_NAME": "com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver",
+        "aws.region": "ap-south-1",
+        "aws.s3.mock": false,
+        "aws.s3.buckets.customer": "sush-employeedb"
       }
     },
     "frontend": {

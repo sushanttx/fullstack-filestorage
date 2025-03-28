@@ -9,11 +9,14 @@ import software.amazon.awssdk.services.s3.S3Client;
 @Configuration
 public class S3Config {
 
-    @Value("${aws.region}")
+    @Value("${AWS_REGION}")
     private String awsRegion;
 
-    @Value("${aws.s3.mock}")
+    @Value("${AWS_S3_MOCK}")
     private boolean mock;
+
+    @Value("${AWS_S3_BUCKET_CUSTOMER}")
+    private String s3Bucket;
 
     @Bean
     public S3Client s3Client() {
