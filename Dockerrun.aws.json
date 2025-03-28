@@ -1,23 +1,33 @@
 {
-  "AWSEBDockerrunVersion": 2,
-  "containerDefinitions": [
-    {
-      "name": "sushant-api",
-      "image": "sushant5x/sushant-api",
+  "AWSEBDockerrunVersion": "3",
+  "services": {
+    "backend": {
+      "image": "sushant5x/fullstack-app-backend:latest",
       "essential": true,
       "memory": 512,
-      "portMappings": [
+      "ports": [
         {
-          "hostPort": 80,
           "containerPort": 8080
         }
       ],
-      "environment": [
+      "environment": {
+        "SPRING_DATASOURCE_URL": "jdbc-secretsmanager:postgresql://database-2.cv8wgw2euf1d.ap-south-1.rds.amazonaws.com:5432/customer",
+        "SPRING_DATASOURCE_DRIVER_CLASS_NAME": "com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver"
+      }
+    },
+    "frontend": {
+      "image": "sushant5x/fullstack-app-frontend:latest",
+      "essential": true,
+      "memory": 256,
+      "ports": [
         {
-          "name": "SPRING_PROFILES_ACTIVE",
-          "value": "test"
+          "containerPort": 3000,
+          "hostPort": 3000
         }
-      ]
+      ],
+      "environment": {
+        "REACT_APP_API_BASE_URL": "http://backend:8080"
+      }
     }
-  ]
+  }
 }
