@@ -5,8 +5,8 @@ import com.sushant.customer.CustomerRepository;
 import com.sushant.customer.Gender;
 import com.sushant.s3.S3Buckets;
 import com.sushant.s3.S3Service;
-import io.github.cdimascio.dotenv.Dotenv;
-import jakarta.annotation.PostConstruct;
+//import io.github.cdimascio.dotenv.Dotenv;
+//import jakarta.annotation.PostConstruct;
 import net.datafaker.Faker;
 //import com.github.javafaker.Name;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +21,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        Dotenv dotenv = Dotenv.load();
+//        Dotenv dotenv = Dotenv.load();
         SpringApplication.run(Main.class, args);
     }
 
