@@ -69,7 +69,7 @@ jobs:
       - name: Wait for PostgreSQL to be ready
         run: |
           for i in {1..20}; do
-            nc -zv localhost 5332 && echo "PostgreSQL is up!" && exit 0
+            nc -zv localhost 5432 && echo "PostgreSQL is up!" && exit 0
             echo "Waiting for PostgreSQL..."
             sleep 5
           done
@@ -78,7 +78,7 @@ jobs:
       - name: Debug PostgreSQL Connection
         run: |
           echo "Checking if PostgreSQL is reachable..."
-          pg_isready -h localhost -p 5332 -U root
+          pg_isready -h localhost -p 5432 -U root
 
 
 
