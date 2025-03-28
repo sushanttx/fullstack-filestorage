@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "sushant-api",
-      "image": "sushant5x/sushant-api:latest",
+      "image": "sushant5x/sushant-api",
       "essential": true,
       "memory": 512,
       "portMappings": [
