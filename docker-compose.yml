@@ -13,13 +13,14 @@ services:
     networks:
       - db
     restart: unless-stopped
+
   sushant-api:
     container_name: sushant-api
     image: sushant5x/fullstack-app-backend:latest
 #    env_file:
 #      - .env
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/customer
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/customer
     ports:
       - "8088:8080"
     networks:
